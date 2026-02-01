@@ -120,4 +120,10 @@ export class CartService {
 
     return this.getCart(cartItem.cartId);
   }
+
+  async createCart(userId: string) {
+    return this.prisma.cart.create({
+      data: { userId },
+    });
+  }
 }

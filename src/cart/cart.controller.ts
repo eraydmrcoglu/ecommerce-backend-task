@@ -55,4 +55,9 @@ export class CartController {
   removeItem(@Param('itemId') itemId: string): Promise<CartResponseDto> {
     return this.service.removeItem(itemId);
   }
+
+  @Post()
+  create(@Body('userId') userId: string) {
+    return this.service.createCart(userId);
+  }
 }

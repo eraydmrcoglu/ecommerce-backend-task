@@ -12,21 +12,48 @@ export class ProductsController {
   @ApiOperation({ summary: 'Tüm ürünleri getir' })
   @ApiResponse({ status: 200, type: [ProductResponseDto] })
   @Get()
-  getAll(): Promise<ProductResponseDto[]> {
-    return this.service.findAll();
+  async getAll(): Promise<ProductResponseDto[]> {
+    const products = await this.service.findAll();
+
+    return products.map((p) => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      price: Number(p.price),
+      imageUrl: p.imageUrl,
+      stock: p.stock,
+    }));
   }
 
   @ApiOperation({ summary: 'Ürün detayı getir' })
   @ApiResponse({ status: 200, type: ProductResponseDto })
   @Get(':id')
-  getOne(@Param('id') id: string): Promise<ProductResponseDto> {
-    return this.service.findOne(id);
+  async getOne(@Param('id') id: string): Promise<ProductResponseDto> {
+    const p = await this.service.findOne(id);
+
+    return {
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      price: Number(p.price),
+      imageUrl: p.imageUrl,
+      stock: p.stock,
+    };
   }
 
   @ApiOperation({ summary: 'Yeni ürün oluştur' })
   @ApiResponse({ status: 201, type: ProductResponseDto })
   @Post()
-  create(@Body() dto: CreateProductDto): Promise<ProductResponseDto> {
-    return this.service.create(dto);
+  async create(@Body() dto: CreateProductDto): Promise<ProductResponseDto> {
+    const p = await this.service.create(dto);
+
+    return {
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      price: Number(p.price),
+      imageUrl: p.imageUrl,
+      stock: p.stock,
+    };
   }
 }

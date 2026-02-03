@@ -69,40 +69,40 @@ Swagger API dokümantasyonu: http://localhost:3000/api
 
 ---
 
-## API Modülleri
+## API Endpointleri
 
-### Auth
+### Auth Modülü
 
-| Method | Endpoint        | Açıklama                     
-|------|-----------------|------------------------------
-| POST | `/auth/register` | Kullanıcı kayıt              
-| POST | `/auth/login`    | Kullanıcı giriş (JWT üretir)
-| GET  | `/auth/me`       | Giriş yapan kullanıcı bilgisi
+| Method | Endpoint        | Açıklama                | Body (JSON) |
+|------|-----------------|-------------------------|------------|
+| POST | `/auth/register` | Kullanıcı kaydı         | `{ "email": "string", "password": "string" }` |
+| POST | `/auth/login`    | Kullanıcı girişi        | `{ "email": "string", "password": "string" }` |
+| GET  | `/auth/me`       | Giriş yapan kullanıcı   | — |
 
-### Products
+### Products Modülü
 
-| Method | Endpoint            | Açıklama            
-|------|---------------------|---------------------
-| GET  | `/products`         | Tüm ürünleri getir 
-| GET  | `/products/:id`     | Ürün detayı getir
-| POST | `/products`         | Yeni ürün oluştur
+| Method | Endpoint            | Açıklama            | Body (JSON) |
+|------|---------------------|---------------------|------------|
+| GET  | `/products`         | Ürünleri listele    | — |
+| GET  | `/products/:id`     | Ürün detayı         | — |
+| POST | `/products`         | Ürün oluştur        | `{ "name": "string", "price": "number", "stock": "number" }` |
 
-### Cart
+### Cart Modülü
 
-| Method | Endpoint                      | Açıklama                     
-|------|--------------------------------|------------------------------
-| POST | `/cart`                        | Kullanıcı için sepet oluştur
-| GET  | `/cart/:id`                    | Sepeti görüntüle
-| POST | `/cart/:id/items`              | Sepete ürün ekle
-| PATCH| `/cart/items/:itemId`          | Sepet ürün miktarı güncelle
-| DELETE | `/cart/items/:itemId`        | Sepetten ürün sil
+| Method | Endpoint | Açıklama | Body (JSON) |
+|------|---------|----------|------------|
+| POST | `/cart` | Yeni sepet oluştur | `{ "userId": "uuid" }` |
+| GET | `/cart/:cartId` | Sepeti getir | — |
+| POST | `/cart/:cartId/items` | Sepete ürün ekle | `{ "productId": "uuid", "quantity": "number" }` |
+| PATCH | `/cart/items/:itemId` | Sepet ürünü güncelle | `{ "quantity": "number" }` |
+| DELETE | `/cart/items/:itemId` | Sepetten ürün sil | — |
 
-### Orders
+### Not
 
-| Method | Endpoint        | Açıklama               
-|------|-----------------|--------------------------
-| POST | `/orders`        | Sepetten sipariş oluştur
-| GET  | `/orders/:id`    | Sipariş detayı getir
+- `cartId` → `/cart` endpoint’inden dönen **sepet ID**
+- `productId` → `/products` endpoint’inden alınan **ürün ID**
+- `itemId` → Sepet içindeki ürünün **CartItem ID**
+- Korumalı endpointler için `Authorization: Bearer <JWT>` header’ı eklenmelidir
 
 ---
 

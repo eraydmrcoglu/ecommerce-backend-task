@@ -9,7 +9,7 @@ export class OrdersController {
   constructor(private readonly service: OrdersService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Sepetten sipariş oluştur' })
+  @ApiOperation({ summary: 'Create order from cart' })
   @ApiResponse({ status: 201, type: OrderResponseDto })
   async create(
     @Body('cartId') cartId: string,
@@ -18,7 +18,7 @@ export class OrdersController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Sipariş detayını getir' })
+  @ApiOperation({ summary: 'Get order details' })
   @ApiResponse({ status: 200, type: OrderResponseDto })
   async getOne(
     @Param('id') id: string,

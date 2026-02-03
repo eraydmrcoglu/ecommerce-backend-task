@@ -16,7 +16,7 @@ export class AuthController {
   constructor(private readonly service: AuthService) {}
 
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'JWT ile korumalı örnek endpoint' })
+  @ApiOperation({ summary: 'JWT protected instance endpoint' })
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@Req() req) {

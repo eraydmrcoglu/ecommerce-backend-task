@@ -41,7 +41,7 @@ export class ProductsController {
     };
   }
 
-  @ApiOperation({ summary: 'Yeni ürün oluştur' })
+  @ApiOperation({ summary: 'Create new product' })
   @ApiResponse({ status: 201, type: ProductResponseDto })
   @Post()
   async create(@Body() dto: CreateProductDto): Promise<ProductResponseDto> {
